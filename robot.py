@@ -44,10 +44,13 @@ class MyRobot(wpilib.TimedRobot):
 
         if self.stick.getRawButton(1) == True:
             self.track_ball.set(1)
-            self.ball_catcher.set(-1)
+            self.ball_catcher.set(1)
         elif self.stick.getRawButton(6) == True:
             self.track_ball.set(-1)
             self.ball_catcher.set(0)
+        elif self.stick.getRawButton(3) == True:
+            self.track_ball.set(0)
+            self.ball_catcher.set(-1)
         else:
             self.track_ball.set(0)
             self.ball_catcher.set(0)
@@ -56,14 +59,14 @@ class MyRobot(wpilib.TimedRobot):
             self.shooter.set(1)
         else:
             self.shooter.set(0)
-        
-
 
 
         #self.m_left_front.set(0.5)
+
     # quadrado - pegar e subir
     # x - chutar
-    # r1 ou triangulo - descer
+    # r1 - descer
+    # o - desprender a bola
 
 if __name__ == "__main__":
     wpilib.run(MyRobot)
