@@ -42,20 +42,20 @@ class MyRobot(wpilib.TimedRobot):
             self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
         )
 
-        if self.stick.getRawButton(1) == True:
+        if self.stick.getRawButton(2) == True:
             self.track_ball.set(1)
             self.ball_catcher.set(1)
         elif self.stick.getRawButton(6) == True:
             self.track_ball.set(-1)
             self.ball_catcher.set(0)
-        elif self.stick.getRawButton(3) == True:
+        elif self.stick.getRawButton(4) == True:
             self.track_ball.set(0)
             self.ball_catcher.set(-1)
         else:
             self.track_ball.set(0)
             self.ball_catcher.set(0)
 
-        if self.stick.getRawButton(2) == True:
+        if self.stick.getRawButton(1) == True:
             self.shooter.set(1)
         else:
             self.shooter.set(0)
