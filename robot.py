@@ -32,6 +32,9 @@ class MyRobot(wpilib.TimedRobot):
         # joystick #0
         self.stick = wpilib.Joystick(0)
 
+        # init camera
+        wpilib.CameraServer.launch()
+
     def teleopInit(self):
         """Executed at the start of teleop mode"""
         self.myRobot.setSafetyEnabled(True)
