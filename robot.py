@@ -33,7 +33,7 @@ class MyRobot(wpilib.TimedRobot):
         self.stick = wpilib.Joystick(0)
 
         # init camera
-        wpilib.CameraServer.launch()
+        wpilib.CameraServer.launch('vision.py:main')
 
     def teleopInit(self):
         """Executed at the start of teleop mode"""
@@ -44,6 +44,8 @@ class MyRobot(wpilib.TimedRobot):
         self.myRobot.arcadeDrive(
             self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
         )
+
+        print(self.stick.getRawAxis(1))
 
         if self.stick.getRawButton(2) == True:
             self.track_ball.set(1)
