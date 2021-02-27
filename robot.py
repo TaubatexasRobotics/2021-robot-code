@@ -4,10 +4,11 @@
     specifically it contains the code necessary to operate a robot with
     a single joystick
 """
-
+#import vision
 import wpilib
 import wpilib.drive
 import ctre
+from networktables import NetworkTables
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
@@ -32,6 +33,9 @@ class MyRobot(wpilib.TimedRobot):
         # joystick #0
         self.stick = wpilib.Joystick(0)
 
+        NetworkTables.initialize(server='roborio-7459-frc.local')
+        self.table = NetworkTables.getTable("SmartDashboard")
+
         # init camera
         wpilib.CameraServer.launch('vision.py:main')
 
@@ -41,6 +45,9 @@ class MyRobot(wpilib.TimedRobot):
 
     def teleopPeriodic(self):
         """Runs the motors with tank steering"""
+
+        print(self.table.getNumber('position'))
+
         self.myRobot.arcadeDrive(
             self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
         )
