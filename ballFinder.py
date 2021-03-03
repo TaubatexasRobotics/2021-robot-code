@@ -46,8 +46,9 @@ def ballPosition(frame, draw=False ):
             
             if(center):
                 centerX = center[0]
-                relativeX = centerX / frameSizeX    
-                return relativeX, circleRadius
+                relativeX = centerX / frameSizeX
+                relativeRadius = circleRadius/frameSizeX   
+                return relativeX, relativeRadius
             return None
 
 if __name__ == "__main__":
