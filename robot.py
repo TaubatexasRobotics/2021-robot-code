@@ -35,6 +35,40 @@ class MyRobot(wpilib.TimedRobot):
         # init camera
         wpilib.CameraServer.launch('vision.py:main')
 
+        self.timer = wpilib.Timer()
+
+    def autonomousInit(self):
+        """This function is run once each time the robot enters autonomous mode."""
+        self.timer.reset()
+        self.timer.start()
+
+    def autonomousPeriodic(self):
+        """This function is called periodically during autonomous."""
+
+        MULTIPLICADOR = 1
+        # Drive for two seconds
+        #tempo = 0
+        if self.timer.get() < 1.7:
+            self.myRobot.arcadeDrive(0.5*MULTIPLICADOR, 0)  # Drive forwards at half speed
+        elif self.timer.get() < 2.0:
+            self.myRobot.arcadeDrive(0, -0.9*MULTIPLICADOR)
+        elif self.timer.get() < 4.1:
+            self.myRobot.arcadeDrive(0.5*MULTIPLICADOR, 0)
+        elif self.timer.get() < 4.4:
+            self.myRobot.arcadeDrive(0, 0.9*MULTIPLICADOR)
+        elif self.timer.get() < 6.2:
+            self.myRobot.arcadeDrive(0.8*MULTIPLICADOR, 0)
+        elif self.timer.get() < 6.5:
+            self.myRobot.arcadeDrive(0, 0.9*MULTIPLICADOR)
+        elif self.timer.get() < 7:
+            self.myRobot.arcadeDrive(-0.3, 0)
+        elif self.timer.get() < 8.5:
+            self.myRobot.arcadeDrive(0.6, 0)
+        elif self.timer.get() < 9:
+            self.myRobot.arcadeDrive(0.8, -0.8)
+        else:
+            self.myRobot.arcadeDrive(0, 0)  # Stop robot
+
     def teleopInit(self):
         """Executed at the start of teleop mode"""
         self.myRobot.setSafetyEnabled(True)
