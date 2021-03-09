@@ -8,6 +8,7 @@
 import wpilib
 import wpilib.drive
 import ctre
+import networktables_project
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
