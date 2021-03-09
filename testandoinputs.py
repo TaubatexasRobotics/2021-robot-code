@@ -36,8 +36,9 @@ class MyRobot(wpilib.TimedRobot):
         wpilib.CameraServer.launch()
 
         #criandoinputs
-        self.entradateste = wpilib.DigitalInput(0)
-        self.entradateste1 = wpilib.AnalogInput(1)
+        self.entraInput = wpilib.DigitalInput(0)
+        self.entraAnalog = wpilib.AnalogInput(1)
+        self.entraEncoder = wpilib.Encoder(0,1)
 
     def teleopInit(self):
         """Executed at the start of teleop mode"""
@@ -50,16 +51,23 @@ class MyRobot(wpilib.TimedRobot):
         )
 
         #testanto input digital
-        if self.entradateste.get() == True:
+        if self.entraInput.get() == True:
             self.shooter.set(1)
         else:
             self.shooter.set(-1)
 
         #testando input analógico
-        if self.entradateste1.getValue() >= 2.5:
+        print(self.entraAnalog.getValue())
+        if self.entraAnalog.getValue()>= 2048:
             self.track_ball.set(1)
         else:
-            self.track_ball.set(-1)
+            self.track_ball.set(-1) 
+        
+        #testando encoder
+        if self.entraEncoder.get() >= 5:
+            self.ball_catcher.set(1)
+        else:
+            self.ball_catcher.set(-1)
 
 if __name__ == "__main__":
     wpilib.run(MyRobot)
