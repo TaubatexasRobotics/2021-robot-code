@@ -57,7 +57,6 @@ class MyRobot(wpilib.TimedRobot):
             self.shooter.set(-1)
 
         #testando input analógico
-        print(self.entraAnalog.getValue())
         if self.entraAnalog.getValue()>= 2048:
             self.track_ball.set(1)
         else:
