@@ -6,7 +6,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-NetworkTables.initialize()
+NetworkTables.initialize(server='localhost')
 sd = NetworkTables.getTable("SmartDashboard")
 
 i = 0
