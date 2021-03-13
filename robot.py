@@ -41,9 +41,15 @@ class MyRobot(wpilib.TimedRobot):
 
     def teleopPeriodic(self):
         """Runs the motors with tank steering"""
-        self.myRobot.arcadeDrive(
-            self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
-        )
+        # to invert the axis when robot turns back
+        if self.stick.getRawButton(5) == True:
+            self.myRobot.arcadeDrive(
+                -self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
+            )
+        else:
+            self.myRobot.arcadeDrive(
+                self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
+            )
 
         if self.stick.getRawButton(2) == True:
             self.track_ball.set(1)
