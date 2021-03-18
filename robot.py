@@ -34,7 +34,12 @@ class MyRobot(wpilib.TimedRobot):
         self.stick = wpilib.Joystick(0)
 
         # init camera
-        wpilib.CameraServer.launch()
+        wpilib.CameraServer.launch('ballFinder.py:main')
+
+        # init networktables
+        #networktables.initialize(server='10.74.59.2')
+        #networktables.initialize()
+        #NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 
     def teleopInit(self):
         """Executed at the start of teleop mode"""
