@@ -4,10 +4,10 @@
     specifically it contains the code necessary to operate a robot with
     a single joystick
 """
+
 import wpilib
 import wpilib.drive
 import ctre
-#import networktables_project
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
@@ -33,12 +33,7 @@ class MyRobot(wpilib.TimedRobot):
         self.stick = wpilib.Joystick(0)
 
         # init camera
-        wpilib.CameraServer.launch('vision4.py')
-
-        # init networktables
-        #networktables.initialize(server='10.74.59.2')
-        #networktables.initialize()
-        #NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+        wpilib.CameraServer.launch('vision2.py')
 
     def teleopInit(self):
         """Executed at the start of teleop mode"""
@@ -46,9 +41,15 @@ class MyRobot(wpilib.TimedRobot):
 
     def teleopPeriodic(self):
         """Runs the motors with tank steering"""
-        self.myRobot.arcadeDrive(
-            self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
-        )
+        # to invert the axis when robot turns back
+        if self.stick.getRawButton(5) == True:
+            self.myRobot.arcadeDrive(
+                -self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
+            )
+        else:
+            self.myRobot.arcadeDrive(
+                self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
+            )
 
         if self.stick.getRawButton(2) == True:
             self.track_ball.set(1)
