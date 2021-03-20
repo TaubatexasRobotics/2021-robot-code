@@ -4,11 +4,10 @@
     specifically it contains the code necessary to operate a robot with
     a single joystick
 """
-
 import wpilib
 import wpilib.drive
 import ctre
-import networktables_project
+#import networktables_project
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
@@ -34,7 +33,7 @@ class MyRobot(wpilib.TimedRobot):
         self.stick = wpilib.Joystick(0)
 
         # init camera
-        wpilib.CameraServer.launch('ballFinder.py:main')
+        wpilib.CameraServer.launch('vision4.py')
 
         # init networktables
         #networktables.initialize(server='10.74.59.2')
