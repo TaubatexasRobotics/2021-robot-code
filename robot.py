@@ -8,6 +8,7 @@
 import wpilib
 import wpilib.drive
 import ctre
+import networktables_project
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
@@ -33,23 +34,36 @@ class MyRobot(wpilib.TimedRobot):
         self.stick = wpilib.Joystick(0)
 
         # init camera
-        wpilib.CameraServer.launch('vision2.py')
+        wpilib.CameraServer.launch('vision.py:main')
+
+        self.timer = wpilib.Timer()
 
     def teleopInit(self):
         """Executed at the start of teleop mode"""
         self.myRobot.setSafetyEnabled(True)
 
+    def autonomousInit(self):
+        """This function is run once each time the robot enters autonomous mode."""
+        self.timer.reset()
+        self.timer.start()
+
+    def autonomousPeriodic(self):
+        print("Valor qualquer: ",networktables_project.sd.getNumber("robotValue",-1))
+    
     def teleopPeriodic(self):
         """Runs the motors with tank steering"""
         # to invert the axis when robot turns back
+        
         if self.stick.getRawButton(5) == True:
             self.myRobot.arcadeDrive(
                 -self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
             )
         else:
             self.myRobot.arcadeDrive(
-                self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
+                self.stick.getRawAxis(1), self.stick.getRawAxis(0)*1.15, True
             )
+        
+        # potencia = 1.15
 
         if self.stick.getRawButton(2) == True:
             self.track_ball.set(1)

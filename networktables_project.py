@@ -22,10 +22,11 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-NetworkTables.initialize(server='127.0.0.1')
+NetworkTables.initialize()
+#NetworkTables.initialize(server='10.74.59.2')
 sd = NetworkTables.getTable("SmartDashboard")
 
-i = 0
+#sd.putNumber("robotValue",1) 
 '''
 while True:
     print("dsTime:", sd.getNumber("robotTime", -1))
