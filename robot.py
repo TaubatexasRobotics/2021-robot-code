@@ -8,7 +8,7 @@
 import wpilib
 import wpilib.drive
 import ctre
-import networktables_project
+import networktables_project as nt
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
@@ -34,22 +34,58 @@ class MyRobot(wpilib.TimedRobot):
         self.stick = wpilib.Joystick(0)
 
         # init camera
-        wpilib.CameraServer.launch('ballFinder.py:main')
+        wpilib.CameraServer.launch('vision.py:main')
 
-        # init networktables
-        #networktables.initialize(server='10.74.59.2')
-        #networktables.initialize()
-        #NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+        self.timer = wpilib.Timer()
 
     def teleopInit(self):
         """Executed at the start of teleop mode"""
         self.myRobot.setSafetyEnabled(True)
 
+    def autonomousInit(self):
+        """This function is run once each time the robot enters autonomous mode."""
+        self.timer.reset()
+        self.timer.start()
+        self.myRobot.setSafetyEnabled(True)
+
+    def autonomousPeriodic(self):
+        
+        robotX = nt.sd.getNumber("robotX", 0)
+        radius = nt.sd.getNumber("radius", 0)
+        
+        z_rotation_value = 2 * robotX - 1
+        forward_value = 2 * radius - 1
+
+        if robotX >= 1 and radius >= 1:
+            self.myRobot.arcadeDrive(
+                    0, 0, True
+            )
+        else:
+            self.myRobot.arcadeDrive(0, z_rotation_value, True)
+            #if radius <= 0.1:
+            #    self.track_ball.set(-1)
+            #    self.ball_catcher.set(1)
+
+        #if radius > :
+        #    self.myRobot.arcadeDrive(0.2, controlValue, True)
+        #    self.track_ball.set(1)
+        #    self.ball_catcher.set(1)
+            
+
     def teleopPeriodic(self):
         """Runs the motors with tank steering"""
-        self.myRobot.arcadeDrive(
-            self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
-        )
+        # to invert the axis when robot turns back
+        
+        if self.stick.getRawButton(5) == True:
+            self.myRobot.arcadeDrive(
+                -self.stick.getRawAxis(1), self.stick.getRawAxis(0), True
+            )
+        else:
+            self.myRobot.arcadeDrive(
+                self.stick.getRawAxis(1), self.stick.getRawAxis(0)*1.15, True
+            )
+        
+        # potencia = 1.15
 
         if self.stick.getRawButton(2) == True:
             self.track_ball.set(1)
@@ -64,7 +100,7 @@ class MyRobot(wpilib.TimedRobot):
             self.track_ball.set(0)
             self.ball_catcher.set(0)
 
-        if self.stick.getRawButton(1) == True:
+        if self.stick.getRawButton(3) == True:
             self.shooter.set(1)
         else:
             self.shooter.set(0)

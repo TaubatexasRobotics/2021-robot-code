@@ -14,6 +14,7 @@
 #     SmartDashboard.jar ip 127.0.0.1
 #
 
+import threading
 import time
 from networktables import NetworkTables
 
@@ -21,16 +22,26 @@ from networktables import NetworkTables
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
+'''
+cond = threading.Condition()
+notified = [False]
 
+def connectionListener(connected, info):
+    print(info, '; Connected=%s' % connected)
+    with cond:
+        notified[0] = True
+        cond.notify()
+'''
 NetworkTables.initialize()
+#NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+
 sd = NetworkTables.getTable("SmartDashboard")
-
-i = 0
 '''
-while True:
-    print("dsTime:", sd.getNumber("robotTime", -1))
-
-    sd.putNumber("robotTime", i)
-    time.sleep(1)
-    i += 1
+with cond:
+    print("Waiting")
+    if not notified[0]:
+        cond.wait()
 '''
+# Insert your processing code here
+print("Connected!")
+
