@@ -39,9 +39,9 @@ def ballPosition(frame):
                 relativeRadius = circleRadius/frameSizeX   
                 return relativeX, relativeRadius
             else:
-                return (0.1, 0.1)
+                return (-1, -1)
     else: 
-        return (0.1, 0.1)
+        return (-1, -1)
 
 def main():
     cs = cscore.CameraServer.getInstance()
@@ -50,10 +50,11 @@ def main():
     # Capture from the first USB Camera on the system
     camera = cs.startAutomaticCapture()
     
-    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, 320, 240, 15)
+    # Set the video mode and resolution of camera
+    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, 160, 120, 15)
     camera.setVideoMode(config)
 
-#    camera.setResolution(320, 240)
+    #camera.setResolution(320, 240)
 
     # Get a CvSink. This will capture images from the camera
     cvSink = cs.getVideo()
@@ -73,9 +74,9 @@ def main():
             outputStream.notifyError(cvSink.getError());
             # skip the rest of the current iteration
             continue
-        ballValue = ballPosition(img)
-        # Insert your image processing logic here!
-        if ballValue != None:    
+        
+        ballValue = ballFinder(img)
+        if ballValue != None:
             relativeX, relativeRadius = ballPosition(img)
-            networktables_project.sd.putNumber("robotX",relativeX) 
+            networktables_project.sd.putNumber("visionX",relativeX)
             networktables_project.sd.putNumber("radius",relativeRadius) 
