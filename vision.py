@@ -52,7 +52,7 @@ def main():
     camera = cs.startAutomaticCapture()
     
     # Set the video mode and resolution of camera
-    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, RESOLUCAO, 15)
+    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, *RESOLUCAO, 15)
     camera.setVideoMode(config)
 
     #camera.setResolution(320, 240)
@@ -61,10 +61,10 @@ def main():
     cvSink = cs.getVideo()
 
     # (optional) Setup a CvSource. This will send images back to the Dashboard
-    outputStream = cs.putVideo("vision.py-camera", RESOLUCAO)
+    outputStream = cs.putVideo("vision.py-camera", *RESOLUCAO)
 
     # Allocating new images is very expensive, always try to preallocate
-    img = np.zeros(shape=(RESOLUCAO, 3), dtype=np.uint8)
+    img = np.zeros(shape=(*RESOLUCAO, 3), dtype=np.uint8)
     
     while True:
         # Tell the CvSink to grab a frame from the camera and put it
