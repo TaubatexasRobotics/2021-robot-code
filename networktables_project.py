@@ -36,6 +36,7 @@ NetworkTables.initialize()
 #NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 
 sd = NetworkTables.getTable("SmartDashboard")
+
 '''
 with cond:
     print("Waiting")

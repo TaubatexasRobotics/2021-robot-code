@@ -49,22 +49,27 @@ class MyRobot(wpilib.TimedRobot):
         self.timer.reset()
         self.timer.start()
         self.myRobot.setSafetyEnabled(True)
+        nt.sd.putNumber("velocidadeT",1)
+        nt.sd.putNumber("velocidadeR",1)
 
     def autonomousPeriodic(self):
     
         robotX = nt.sd.getNumber("robotX", -1)
         radius = nt.sd.getNumber("radius", -1)
+        velocidadeT = nt.sd.getNumber("velocidadeT", -1)
+        velocidadeR = nt.sd.getNumber("velocidadeR", -1)
 
-        z_rotation_value = (2 * robotX - 1)*0.5
+
+        z_rotation_value = 2 * robotX - 1
 
 
         if radius == -1:
-            self.timer.reset()
-            self.timer.start()
-            if self.timer.get() >= 10:
-               self.myRobot.arcadeDrive(-(1/1000), 1/1000, True)
+            #self.timer.reset()
+            #self.timer.start()
+            #if self.timer.get() >= 10:
+            self.myRobot.arcadeDrive(-(velocidadeT/1000), 1/1000, True)
         else:
-            self.myRobot.arcadeDrive(-(1/1000), z_rotation_value, True)
+            self.myRobot.arcadeDrive(-(velocidadeT/1000), z_rotation_value/velocidadeR, True)
 
     def teleopPeriodic(self):
     #Runs the motors with tank steering
