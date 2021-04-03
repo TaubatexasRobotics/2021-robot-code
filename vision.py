@@ -31,7 +31,7 @@ def ballPosition(frame):
         M = cv2.moments(c)
         center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-        if circleRadius > 20:
+        if circleRadius > 10:
             # then update the list of tracked points
             if(center):
                 centerX = center[0]
@@ -79,5 +79,5 @@ def main():
         
         ballValue = ballPosition(img)
         relativeX, relativeRadius = ballPosition(img)
-        networktables_project.sd.putNumber("visionX",relativeX)
+        networktables_project.sd.putNumber("robotX",relativeX)
         networktables_project.sd.putNumber("radius",relativeRadius) 
