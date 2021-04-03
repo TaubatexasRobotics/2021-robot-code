@@ -38,12 +38,7 @@ def ballPosition(frame):
                 relativeX = centerX / frameSizeX
                 relativeRadius = circleRadius/frameSizeX   
                 return relativeX, relativeRadius
-            else:
-                return (-1, -1)
-        else:
-            return (-1, -1)
-    else: 
-        return (-1, -1)
+    return (-1, -1)
 
 def main():
 
@@ -69,7 +64,7 @@ def main():
     outputStream = cs.putVideo("vision.py-camera", RESOLUCAO)
 
     # Allocating new images is very expensive, always try to preallocate
-    img = np.zeros(shape=(240, 320, 3), dtype=np.uint8)
+    img = np.zeros(shape=(RESOLUCAO, 3), dtype=np.uint8)
     
     while True:
         # Tell the CvSink to grab a frame from the camera and put it
@@ -81,7 +76,6 @@ def main():
             # skip the rest of the current iteration
             continue
         
-        ballValue = ballPosition(img)
         relativeX, relativeRadius = ballPosition(img)
         networktables_project.sd.putNumber("robotX",relativeX)
         networktables_project.sd.putNumber("radius",relativeRadius) 
