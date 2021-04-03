@@ -40,6 +40,8 @@ def ballPosition(frame):
                 return relativeX, relativeRadius
             else:
                 return (-1, -1)
+        else:
+            return (-1, -1)
     else: 
         return (-1, -1)
 
@@ -51,7 +53,7 @@ def main():
     camera = cs.startAutomaticCapture()
     
     # Set the video mode and resolution of camera
-    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, 160, 120, 15)
+    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, 320, 240, 15)
     camera.setVideoMode(config)
 
     #camera.setResolution(320, 240)
@@ -75,8 +77,7 @@ def main():
             # skip the rest of the current iteration
             continue
         
-        ballValue = ballFinder(img)
-        if ballValue != None:
-            relativeX, relativeRadius = ballPosition(img)
-            networktables_project.sd.putNumber("visionX",relativeX)
-            networktables_project.sd.putNumber("radius",relativeRadius) 
+        ballValue = ballPosition(img)
+        relativeX, relativeRadius = ballPosition(img)
+        networktables_project.sd.putNumber("visionX",relativeX)
+        networktables_project.sd.putNumber("radius",relativeRadius) 

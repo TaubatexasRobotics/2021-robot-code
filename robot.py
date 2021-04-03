@@ -57,13 +57,13 @@ class MyRobot(wpilib.TimedRobot):
 
         z_rotation_value = 2 * robotX - 1
 
-        if robotX == -1 and radius == 1:
+        if robotX == -1 and radius == -1:
             self.timer.reset()
             self.timer.start()
             if self.timer.get() >= 10:
-                self.myRobot.arcadeDrive(1/1000, 1/1000, True)
-            else:
-                self.myRobot.arcadeDrive(radius, z_rotation_value, True)
+               self.myRobot.arcadeDrive(1/1000, 1/1000, True)
+        else:
+            self.myRobot.arcadeDrive(radius, z_rotation_value, True)
 
     def teleopPeriodic(self):
     #Runs the motors with tank steering
