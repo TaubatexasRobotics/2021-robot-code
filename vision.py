@@ -43,7 +43,7 @@ def ballPosition(frame):
 def main():
 
     RESOLUCOES_POSSIVEIS = {'baixa':(160, 120), 'media':(320,240), 'alta':(640,480)}
-    RESOLUCAO = RESOLUCOES_POSSIVEIS['media']
+    RESOLUCAO = RESOLUCOES_POSSIVEIS['alta']
 
     cs = cscore.CameraServer.getInstance()
     cs.enableLogging()

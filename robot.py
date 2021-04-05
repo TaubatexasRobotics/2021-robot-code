@@ -49,7 +49,7 @@ class MyRobot(wpilib.TimedRobot):
         self.timer.reset()
         self.timer.start()
         self.myRobot.setSafetyEnabled(True)
-        nt.sd.putNumber("velocidadeT",1)
+        nt.sd.putNumber("velocidadeT",300)
         nt.sd.putNumber("velocidadeR",1)
 
     def autonomousPeriodic(self):
@@ -59,8 +59,14 @@ class MyRobot(wpilib.TimedRobot):
         velocidadeT = nt.sd.getNumber("velocidadeT", -1)
         velocidadeR = nt.sd.getNumber("velocidadeR", -1)
 
+        self.track_ball.set(1)
+        self.ball_catcher.set(1)
+        
+        LIMITE_DE_ROTACAO = 0.75
 
         z_rotation_value = 2 * robotX - 1
+        #z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
+        #z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
 
 
         if radius == -1:
