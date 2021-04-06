@@ -70,10 +70,11 @@ class MyRobot(wpilib.TimedRobot):
 
 
         if radius == -1:
-            #self.timer.reset()
-            #self.timer.start()
-            #if self.timer.get() >= 10:
-            self.myRobot.arcadeDrive(-(velocidadeT/1000), 1/1000, True)
+            self.timer.start()
+            self.myRobot.arcadeDrive(0, -0.5, True)
+            if self.timer.get() >= 0.5:
+                self.myRobot.arcadeDrive(0, 0, True)
+            self.timer.reset()
         else:
             self.myRobot.arcadeDrive(-(velocidadeT/1000), z_rotation_value/velocidadeR, True)
 
