@@ -73,7 +73,7 @@ class MyRobot(wpilib.TimedRobot):
         z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
         z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
         
-        if !AutoNav:
+        if not AutoNav:
             self.track_ball.set(1)
             self.ball_catcher.set(1)
             if radius > 0.4:
