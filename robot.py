@@ -54,7 +54,7 @@ class MyRobot(wpilib.TimedRobot):
         self.myRobot.setSafetyEnabled(True)
         nt.sd.putNumber("velocidadeT",500)
         nt.sd.putNumber("velocidadeR",1)
-        nt.sd.putNumber("AutoNav",True)
+        nt.sd.putNumber("AutoNav",False)
         # nt.sd.putNumber("velocidadeRot",50)
 
     def autonomousPeriodic(self):
@@ -64,7 +64,7 @@ class MyRobot(wpilib.TimedRobot):
         velocidadeT = nt.sd.getNumber("velocidadeT", -1)
         velocidadeR = nt.sd.getNumber("velocidadeR", -1)
         velocidadeRot = nt.sd.getNumber("velocidadeRot", 50)
-        AutoNav = nt.sd.getBool("AutoNav", True)
+        AutoNav = nt.sd.getBool("AutoNav", False)
         
         balls = 0
         LIMITE_DE_ROTACAO = 0.75
@@ -73,7 +73,7 @@ class MyRobot(wpilib.TimedRobot):
         z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
         z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
         
-        if AutoNav:
+        if !AutoNav:
             self.track_ball.set(1)
             self.ball_catcher.set(1)
             if radius > 0.4:
