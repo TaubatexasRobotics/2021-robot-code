@@ -40,6 +40,9 @@ class MyRobot(wpilib.TimedRobot):
         # create timer
         self.timer = wpilib.Timer()
 
+        #encoder
+        self.encoder = wpilib.Encoder(0,1)
+
     def teleopInit(self):
     # Executed at the start of teleop mode
         self.myRobot.setSafetyEnabled(True)
@@ -49,8 +52,10 @@ class MyRobot(wpilib.TimedRobot):
         self.timer.reset()
         self.timer.start()
         self.myRobot.setSafetyEnabled(True)
-        nt.sd.putNumber("velocidadeT",300)
+        nt.sd.putNumber("velocidadeT",500)
         nt.sd.putNumber("velocidadeR",1)
+        nt.sd.putNumber("AutoNav",True)
+        # nt.sd.putNumber("velocidadeRot",50)
 
     def autonomousPeriodic(self):
     
@@ -58,25 +63,39 @@ class MyRobot(wpilib.TimedRobot):
         radius = nt.sd.getNumber("radius", -1)
         velocidadeT = nt.sd.getNumber("velocidadeT", -1)
         velocidadeR = nt.sd.getNumber("velocidadeR", -1)
-
-        self.track_ball.set(1)
-        self.ball_catcher.set(1)
+        velocidadeRot = nt.sd.getNumber("velocidadeRot", 50)
+        AutoNav = nt.sd.getBool("AutoNav", True)
         
+        balls = 0
         LIMITE_DE_ROTACAO = 0.75
 
         z_rotation_value = 2 * robotX - 1
-        #z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
-        #z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
-
-
-        if radius == -1:
-            self.timer.start()
-            self.myRobot.arcadeDrive(0, -0.5, True)
-            if self.timer.get() >= 0.5:
-                self.myRobot.arcadeDrive(0, 0, True)
-            self.timer.reset()
+        z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
+        z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
+        
+        if AutoNav:
+            self.track_ball.set(1)
+            self.ball_catcher.set(1)
+            if radius > 0.4:
+                self.timer.start()
+                if self.timer.get() >= 1:
+                    if radius < 0.4:
+                        balls += 1
+                    self.timer.reset()
+            if radius == -1:
+                self.timer.start()
+                self.myRobot.arcadeDrive(0, -0.5, True)
+                if self.timer.get() >= 1:
+                    self.myRobot.arcadeDrive(0, 0, True)
+                    self.timer.reset()
+            else:
+                self.myRobot.arcadeDrive(-(velocidadeT/1000), z_rotation_value/velocidadeR, True)
+            
+            if balls >= 3:
+                self.myRobot.arcadeDrive(500,0,True)
         else:
-            self.myRobot.arcadeDrive(-(velocidadeT/1000), z_rotation_value/velocidadeR, True)
+            giros = self.encoder.get()
+
 
     def teleopPeriodic(self):
     #Runs the motors with tank steering

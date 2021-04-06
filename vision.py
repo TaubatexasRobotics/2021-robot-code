@@ -52,7 +52,7 @@ def main():
     camera = cs.startAutomaticCapture()
     
     # Set the video mode and resolution of camera
-    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, *RESOLUCAO, 15)
+    config = cscore.VideoMode(cscore.VideoMode.PixelFormat.kYUYV, *RESOLUCAO, 30)
     camera.setVideoMode(config)
 
     #camera.setResolution(320, 240)
