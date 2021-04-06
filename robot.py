@@ -65,8 +65,8 @@ class MyRobot(wpilib.TimedRobot):
         LIMITE_DE_ROTACAO = 0.75
 
         z_rotation_value = 2 * robotX - 1
-        #z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
-        #z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
+        z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
+        z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
 
 
         if radius == -1:
