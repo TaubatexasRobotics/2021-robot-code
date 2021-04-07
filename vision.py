@@ -7,6 +7,7 @@ import networktables_project
 
 def ballPosition(frame):
     frameSizeX = len(frame[1])
+    frameSixeY = frame.shape[0]
     yellowLower = (20, 100, 100)
     yellowUpper = (30, 255, 255)
     
@@ -34,11 +35,11 @@ def ballPosition(frame):
         if circleRadius > 10:
             # then update the list of tracked points
             if(center):
-                centerX = center[0]
-                relativeX = centerX / frameSizeX
+                relativeX = center [0]/ frameSizeX
+                relativeY = center[1] / frameSixeY
                 relativeRadius = circleRadius/frameSizeX   
-                return relativeX, relativeRadius
-    return (-1, -1)
+                return relativeX, relativeRadius, relativeY
+    return (-1, -1, -1)
 
 def main():
 
@@ -76,6 +77,7 @@ def main():
             # skip the rest of the current iteration
             continue
         
-        relativeX, relativeRadius = ballPosition(img)
+        relativeX, relativeRadius, relativeY = ballPosition(img)
         networktables_project.sd.putNumber("robotX",relativeX)
         networktables_project.sd.putNumber("radius",relativeRadius) 
+        networktables_project.sd.putNumber("robotY",relativeY)

@@ -6,7 +6,7 @@ MIN_RADIUS = 30
 
 def ballPosition(frame, draw=False ):
     frameSizeX = len(frame[1])
-
+    frameSixeY = frame.shape[0]
     yellowLower = (20, 100, 100)
     yellowUpper = (30, 255, 255)
 
@@ -47,11 +47,11 @@ def ballPosition(frame, draw=False ):
                 cv2.imshow("Mask", mask)
             
             if(center):
-                centerX = center[0]
-                relativeX = centerX / frameSizeX
+                relativeX = center [0]/ frameSizeX
+                relativeY = center[1] / frameSixeY
                 relativeRadius = circleRadius/frameSizeX   
-                return relativeX, relativeRadius
-            return None
+                return relativeX, relativeRadius, relativeY
+        return None
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
