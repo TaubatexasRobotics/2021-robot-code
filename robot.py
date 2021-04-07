@@ -73,9 +73,9 @@ class MyRobot(wpilib.TimedRobot):
 
 
         if radius == -1:
-            self.myRobot.arcadeDrive(0, -45/100, True)
+            self.myRobot.arcadeDrive(0, -0.45, True)
         else:
-            self.myRobot.arcadeDrive(-(500/1000), z_rotation_value, True)
+            self.myRobot.arcadeDrive(-0.5, z_rotation_value, True)
 
         if robotY >= 0.85:
             self.timer.start()
@@ -85,6 +85,13 @@ class MyRobot(wpilib.TimedRobot):
             if robotY < 0.85:
                 balls +=1
         print(balls)
+
+        #testar se o primeiro passo dar certo
+        # if balls >=3:
+        #     self.timer.start()
+        #     while self.timer.get() < 1:
+        #         self.myRobot.arcadeDrive( 0, 0.45, True)
+        #     self.myRobot.arcadeDrive( -0.5, 0, True)            
 
     def teleopPeriodic(self):
     #Runs the motors with tank steering
