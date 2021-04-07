@@ -91,7 +91,8 @@ class MyRobot(wpilib.TimedRobot):
         #     self.timer.start()
         #     while self.timer.get() < 1:
         #         self.myRobot.arcadeDrive( 0, 0.45, True)
-        #     self.myRobot.arcadeDrive( -0.5, 0, True)            
+        #     wilhe True:
+        #         self.myRobot.arcadeDrive( -0.5, 0, True)            
 
     def teleopPeriodic(self):
     #Runs the motors with tank steering
