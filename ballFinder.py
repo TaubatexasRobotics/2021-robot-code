@@ -2,6 +2,8 @@ import argparse
 import cv2
 #import imutils
 
+MIN_RADIUS = 30
+
 def ballPosition(frame, draw=False ):
     frameSizeX = len(frame[1])
 
@@ -33,7 +35,7 @@ def ballPosition(frame, draw=False ):
         M = cv2.moments(c)
         center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-        if circleRadius > 20:
+        if circleRadius > MIN_RADIUS:
             # draw the circle and centroid on the frame,
             # then update the list of tracked points
             if(draw):

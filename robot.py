@@ -49,8 +49,8 @@ class MyRobot(wpilib.TimedRobot):
         self.timer.reset()
         self.timer.start()
         self.myRobot.setSafetyEnabled(True)
-        nt.sd.putNumber("velocidadeT",300)
-        nt.sd.putNumber("velocidadeR",1)
+        nt.sd.putNumber("velocidadeT",500)
+        nt.sd.putNumber("velocidadeR",45)
 
     def autonomousPeriodic(self):
     
@@ -62,20 +62,23 @@ class MyRobot(wpilib.TimedRobot):
         self.track_ball.set(1)
         self.ball_catcher.set(1)
         
-        LIMITE_DE_ROTACAO = 0.75
+        LIMITE_DE_ROTACAO = 0.45
 
         z_rotation_value = 2 * robotX - 1
-        #z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
-        #z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
+        z_rotation_value = z_rotation_value * 2
+        z_rotation_value = min(z_rotation_value, LIMITE_DE_ROTACAO)
+        z_rotation_value = max(z_rotation_value, -LIMITE_DE_ROTACAO)
 
+        # velocidadeT = 0
 
         if radius == -1:
-            #self.timer.reset()
-            #self.timer.start()
-            #if self.timer.get() >= 10:
-            self.myRobot.arcadeDrive(-(velocidadeT/1000), 1/1000, True)
+            self.timer.start()
+            self.myRobot.arcadeDrive(0, -velocidadeR/100, True)
+            # if self.timer.get() >= 0.5:
+            #     self.myRobot.arcadeDrive(0, 0, True)
+            # self.timer.reset()
         else:
-            self.myRobot.arcadeDrive(-(velocidadeT/1000), z_rotation_value/velocidadeR, True)
+            self.myRobot.arcadeDrive(-(velocidadeT/1000), z_rotation_value, True)
 
     def teleopPeriodic(self):
     #Runs the motors with tank steering
