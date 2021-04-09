@@ -10,7 +10,7 @@ import wpilib.drive
 import ctre
 import networktables_project as nt
 
-balls = 0
+#balls = 0
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
         """Robot initialization function"""
@@ -60,7 +60,7 @@ class MyRobot(wpilib.TimedRobot):
         radius = nt.sd.getNumber("radius", -1)
         velocidadeT = nt.sd.getNumber("velocidadeT", -1)
         velocidadeR = nt.sd.getNumber("velocidadeR", -1)
-        global balls
+        #global balls
 
         self.track_ball.set(1)
         self.ball_catcher.set(1)
@@ -74,25 +74,25 @@ class MyRobot(wpilib.TimedRobot):
 
 
         if radius == -1:
-            self.myRobot.arcadeDrive(0, -0.45, True)
+            self.myRobot.arcadeDrive(0, 0.45, True)
         else:
             self.myRobot.arcadeDrive(-0.5, z_rotation_value, True)
 
-        if robotY >= 0.75:
-            self.timer.start()
-            while self.timer.get() < 0.5:
-                self.myRobot.arcadeDrive(-0.5, 0, True)
-            robotY = nt.sd.getNumber("robotY", -1)
-            if robotY < 0.8:
-                balls +=1
-        print(balls)
+        #if robotY >= 0.75:
+        #    self.timer.start()
+        #    while self.timer.get() < 0.5:
+        #        self.myRobot.arcadeDrive(-0.5, 0, True)
+        #    robotY = nt.sd.getNumber("robotY", -1)
+        #    if robotY < 0.8:
+        #        balls +=1
+        #print(balls)
 
-        if balls >=3:
-            self.timer.start()
-            while self.timer.get() < 0.8:
-                self.myRobot.arcadeDrive( 0, 0.45, True)
-            while True:
-                self.myRobot.arcadeDrive( -0.5, 0, True)            
+        #if balls >=3:
+        #    self.timer.start()
+        #    while self.timer.get() < 0.8:
+        #        self.myRobot.arcadeDrive( 0, 0.45, True)
+        #    while True:
+        #        self.myRobot.arcadeDrive( -0.5, 0, True)            
 
     def teleopPeriodic(self):
     #Runs the motors with tank steering
