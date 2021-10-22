@@ -116,23 +116,6 @@ class MyRobot(wpilib.TimedRobot):
 
         # potencia = 1.15
 
-        if self.stick.getRawButton(2) == True:
-            self.track_ball.set(1)
-            self.ball_catcher.set(1)
-        elif self.stick.getRawButton(6) == True:
-            self.track_ball.set(-1)
-            self.ball_catcher.set(0)
-        elif self.stick.getRawButton(4) == True:
-            self.track_ball.set(0)
-            self.ball_catcher.set(-1)
-        else:
-            self.track_ball.set(0)
-            self.ball_catcher.set(0)
-
-        if self.stick.getRawButton(3) == True:
-            self.shooter.set(1)
-        else:
-            self.shooter.set(0)
 	#self.m_left_front.set(0.5)
 
 	# quadrado - pegar e subir
